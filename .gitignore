@@ -1,3 +1,4 @@
 obj/
 bin/roslyn/Microsoft.CSharp.Core.targets
 bin/
+Static/node_modules/
