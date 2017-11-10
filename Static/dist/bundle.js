@@ -85,12 +85,11 @@ var TimerViewModel = function TimerViewModel() {
     this.rest = _knockout2.default.computed(function () {
         return parseInt(this.hours()) * 3600 + parseInt(this.minutes()) * 60 + parseInt(this.seconds());
     }, this);
-    // this.rest = ko.observable(0);
-    // let initValue = parseInt(this.hours()) * 3600 + parseInt(this.minutes()) * 60 + parseInt(this.seconds());
-    // this.rest(initValue);
-
 
     this.countDown = _knockout2.default.observable();
+
+    //let audio = new Audio("././audio/alarm.wav");
+    var audio = void 0;
 
     this.start = function () {
         var timerFunc = setInterval(function () {
@@ -99,6 +98,7 @@ var TimerViewModel = function TimerViewModel() {
                 countDown();
             } else {
                 clearInterval(timerFunc);
+                playAudioFile();
             }
         }, 1000);
     };
@@ -144,6 +144,15 @@ var TimerViewModel = function TimerViewModel() {
         self.hours(0);
         self.minutes(0);
         self.seconds(0);
+    };
+
+    var playAudioFile = function playAudioFile() {
+        audio = new Audio("../audio/alarm.wav");
+        audio.play();
+    };
+
+    this.stopAudioFile = function () {
+        audio.pause();
     };
 };
 

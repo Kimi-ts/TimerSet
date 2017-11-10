@@ -14,6 +14,9 @@ let TimerViewModel = function(){
 
     this.countDown = ko.observable();
 
+    //let audio = new Audio("././audio/alarm.wav");
+    let audio;
+
     this.start = function(){
         let timerFunc = setInterval(function(){
             console.log('called');
@@ -22,6 +25,7 @@ let TimerViewModel = function(){
             }
             else{
                 clearInterval(timerFunc);
+                playAudioFile();
             }
         }, 1000);
 
@@ -65,13 +69,22 @@ let TimerViewModel = function(){
             hours--;
             self.hours(hours);
         }
-    }
+    };
 
     let reset = function(){
         self.hours(0);
         self.minutes(0);
         self.seconds(0);
-    }
+    };
+
+    let playAudioFile = function(){
+        audio = new Audio("../audio/alarm.wav");
+        audio.play();
+    };
+
+    this.stopAudioFile = function(){
+        audio.pause();
+    };
 };
 
 ko.applyBindings(new TimerViewModel());
