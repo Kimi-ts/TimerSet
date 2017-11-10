@@ -10,6 +10,13 @@ let TimerViewModel = function(){
         return parseInt(this.hours()) * 3600 + parseInt(this.minutes()) * 60 + parseInt(this.seconds());
     }, this);
 
+    this.timers = ko.observableArray();
+    let a = []; for (var i = 0; i < 8; i++){let c = {hours:0, minutes:0, seconds:0}; a.push(c);};
+    this.timers(a);
+    console.log(this.timers());
+
+
+    let activeTimerIndex = 0;
 
 
     this.countDown = ko.observable();
@@ -26,6 +33,8 @@ let TimerViewModel = function(){
             else{
                 clearInterval(timerFunc);
                 playAudioFile();
+                activeTimerIndex++;  
+                setActiveTimer();
             }
         }, 1000);
 
@@ -85,6 +94,17 @@ let TimerViewModel = function(){
     this.stopAudioFile = function(){
         audio.pause();
     };
+
+    let setActiveTimer = function(){
+        let hours = self.timers()[activeTimerIndex].hours;
+        self.hours(hours);
+
+        let minutes = self.timers()[activeTimerIndex].minutes;
+        self.minutes(minutes);
+
+        let seconds = self.timers()[activeTimerIndex].seconds;
+        self.minutes(seconds);
+    }
 };
 
 ko.applyBindings(new TimerViewModel());

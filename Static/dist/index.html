@@ -6,7 +6,8 @@
 <body>
     <h1>Timer test</h1>
     <p data-bind="text: HelloString"></p>
-    <div>
+    <div data-bind="foreach: timers">
+        <p>phase <span data-bind="text: $index"></span>:</p>
         <span>Hours:</span><input type="number" data-bind="value: hours"  />
         <span>Minutes:</span><input type="number" data-bind="value: minutes"  />
         <span>seconds:</span><input type="number" data-bind="value: seconds"  />
