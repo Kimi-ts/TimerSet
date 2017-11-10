@@ -11,6 +11,8 @@
         <span>Minutes:</span><input type="number" data-bind="value: minutes"  />
         <span>seconds:</span><input type="number" data-bind="value: seconds"  />
     </div>
+    <p data-bind="text: rest"></p>
+    <div><button data-bind="click: start()">Start</button></div>
 
     <script type="text/javascript" src="bundle.js"></script>
 </body>

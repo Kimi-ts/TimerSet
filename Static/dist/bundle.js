@@ -76,14 +76,78 @@ var _knockout2 = _interopRequireDefault(_knockout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ViewModel = function ViewModel() {
+var TimerViewModel = function TimerViewModel() {
+    var self = this;
     this.HelloString = "Kimi Raikkonen";
     this.hours = _knockout2.default.observable(0);
     this.minutes = _knockout2.default.observable(0);
     this.seconds = _knockout2.default.observable(0);
+    this.rest = _knockout2.default.computed(function () {
+        return parseInt(this.hours()) * 3600 + parseInt(this.minutes()) * 60 + parseInt(this.seconds());
+    }, this);
+    // this.rest = ko.observable(0);
+    // let initValue = parseInt(this.hours()) * 3600 + parseInt(this.minutes()) * 60 + parseInt(this.seconds());
+    // this.rest(initValue);
+
+
+    this.countDown = _knockout2.default.observable();
+
+    this.start = function () {
+        var timerFunc = setInterval(function () {
+            console.log('called');
+            if (self.rest() != 0) {
+                countDown();
+            } else {
+                clearInterval(timerFunc);
+            }
+        }, 1000);
+    };
+
+    var countDown = function countDown() {
+        decSeconds();
+    };
+
+    var decSeconds = function decSeconds() {
+        var seconds = self.seconds();
+        if (seconds == 0) {
+            self.seconds(59);
+            decMinutes();
+        } else {
+            seconds--;
+            self.seconds(seconds);
+        }
+    };
+
+    var decMinutes = function decMinutes() {
+        var minutes = self.minutes();
+        if (minutes == 0) {
+            self.minutes(59);
+            decHours();
+        } else {
+            minutes--;
+            self.minutes(minutes);
+        }
+    };
+
+    var decHours = function decHours() {
+        var hours = self.hours();
+        if (hours == 0) {
+            console.log("invalid hours");
+            self.hours(0);
+        } else {
+            hours--;
+            self.hours(hours);
+        }
+    };
+
+    var reset = function reset() {
+        self.hours(0);
+        self.minutes(0);
+        self.seconds(0);
+    };
 };
 
-_knockout2.default.applyBindings(new ViewModel());
+_knockout2.default.applyBindings(new TimerViewModel());
 
 /***/ }),
 /* 1 */
